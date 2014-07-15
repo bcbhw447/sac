@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<definition name="layout.base" template="/WEB-INF/content/common/layout/Layout.jsp">
+		<put-attribute name="bodyId" value="page_default" type="string" />
+		<put-attribute name="htmlHeader" value="htmlHeader" type="definition" />
+		<put-attribute name="header" value="header" type="definition" />
+		<put-attribute name="menu" value="menu" type="definition" />
+		<put-attribute name="content" type="string"><![CDATA[override]]></put-attribute>
+		<put-attribute name="footer" value="footer" type="definition" />
+	</definition>
+
+	<!-- 通常画面レイアウト -->
+	<definition name="layout.normal" extends="layout.base">
+	</definition>
+
+	<!-- シンプル画面レイアウト -->
+	<definition name="layout.simple" template="/WEB-INF/content/common/layout/LayoutSimple.jsp">
+		<put-attribute name="bodyId" value="" type="string" />
+		<put-attribute name="htmlHeader" value="htmlHeader" type="definition" />
+		<put-attribute name="content" type="string"><![CDATA[override]]></put-attribute>
+	</definition>
+
+	<!-- エラー画面レイアウト -->
+	<definition name="layout.error" extends="layout.simple">
+	</definition>
+
+	<!-- 定義 -->
+	<!-- HTMLヘッダー -->
+	<definition name="htmlHeader" template="/WEB-INF/content/common/def/HtmlHeader.jsp" />
+	<!-- 画面ヘッダー -->
+	<definition name="header" template="/WEB-INF/content/common/def/Header.jsp" />
+	<!-- メニュー -->
+	<definition name="menu" template="/WEB-INF/content/common/def/Menu.jsp" />
+	<!-- フッター -->
+	<definition name="footer" template="/WEB-INF/content/common/def/Footer.jsp" />
+</tiles-definitions>

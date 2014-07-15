@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Common">
+
+	<resultMap id="multiLangMap"
+		type="jp.ne.sac.common.system.bean.MultiLabelValueBean">
+		<result property="value" column="VALUE" />
+		<result property="labelJa" column="LABEL_JA" />
+		<result property="labelEn" column="LABEL_EN" />
+	</resultMap>
+
+	<select id="searchCategory" resultMap="multiLangMap">
+SELECT
+	 CONCAT(SYOHIN_TYPE_CD, SYOHIN_CATEGORY_CD) AS VALUE
+	,SYOHIN_CATEGORY AS LABEL_JA
+	,SYOHIN_CATEGORY AS LABEL_EN
+FROM
+	CATEGORY
+ORDER BY
+	SORT
+    </select>
+
+    <select id="searchType" resultMap="multiLangMap">
+SELECT
+	 SYOHIN_TYPE_CD AS VALUE
+	,SYOHIN_TYPE AS LABEL_JA
+	,SYOHIN_TYPE AS LABEL_EN
+FROM
+	TYPE
+ORDER BY
+	SORT
+    </select>
+
+	<select id="searchCommon" parameterType="string" resultMap="multiLangMap">
+SELECT
+	 KOMOKU_CD AS VALUE
+	,KOMOKU_CHI AS LABEL_JA
+	,ISNULL(KOMOKU_CHI_E, ' ') AS LABEL_EN
+FROM
+	TM_COMMON
+WHERE
+		MASTER_CD = #{value}
+	AND WEB_HYOJI_FLG = '1'
+ORDER BY
+	 HYOJI_JYUN
+	,KOMOKU_CD
+    </select>
+
+	<parameterMap id="sp-saiban" type="jp.ne.sac.common.system.bean.ExtHashMap">
+		<parameter property="pstrCodeNo" jdbcType="CHAR" javaType="java.lang.String" mode="IN" />
+		<parameter property="pstrSaibanValue" jdbcType="CHAR" javaType="java.lang.String" mode="OUT" />
+	</parameterMap>
+	<select id="spSaiban" parameterMap="sp-saiban" resultType="jp.ne.sac.common.system.bean.ExtHashMap" statementType="CALLABLE">
+		{call SP_SAIBAN(?, ?)}
+	</select>
+
+	<select id="searchSysdate" parameterType="integer" resultType="string">
+SELECT
+	CONVERT(VARCHAR, GETDATE(), #{value})
+	</select>
+</mapper>

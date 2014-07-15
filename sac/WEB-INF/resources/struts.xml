@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.ui.theme" value="sac" />
+	<constant name="struts.oval.validateJPAAnnotations" value="true" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.convention.result.path" value="/WEB-INF/content/web/" />
+
+	<!-- Parent Packageの設定 -->
+	<constant name="struts.convention.default.parent.package" value="sac" />
+
+	<!-- ファイルの最大アップロード容量を無制限にする -->
+	<constant name="struts.multipart.maxSize" value="-1" />
+
+	<!--  開発モードスイッチ -->
+	<constant name="struts.devMode" value="true" />
+
+	<!-- アプリケーション共通プロパティファイル名 -->
+	<constant name="struts.custom.i18n.resources" value="common,screen,message" />
+
+	<package namespace="/" name="sac" extends="oval-default">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="annotationInterceptor" class="com.opensymphony.xwork2.interceptor.annotations.AnnotationWorkflowInterceptor"/>
+
+			<!-- 例外処理 -->
+			<interceptor name="exception" class="jp.ne.sac.common.interceptor.ExceptionInterceptor" />
+			<interceptor name="ovalValidation" class="jp.ne.sac.common.interceptor.ValidationInterceptor" />
+
+			<!-- 独自インターセプタ -->
+ 			<interceptor name="debugout" class="jp.ne.sac.common.interceptor.DebugInterceptor" />
+			<interceptor name="setParams" class="jp.ne.sac.common.interceptor.SetParamsInterceptor" />
+			<interceptor name="loginCheck" class="jp.ne.sac.common.interceptor.LoginCheckInterceptor" />
+
+            <!-- portalStackを設定 -->
+			<interceptor-stack name="sacStack">
+				<interceptor-ref name="exception">
+					<param name="logEnabled">true</param>
+					<param name="logLevel">error</param>
+					<param name="logCategory">jp.ne.sac.common.exception.SystemException</param>
+				</interceptor-ref>
+
+				<interceptor-ref name="alias"/>
+				<interceptor-ref name="servletConfig"/>
+				<interceptor-ref name="i18n"/>
+				<interceptor-ref name="chain"/>
+				<interceptor-ref name="debugging"/>
+				<interceptor-ref name="profiling"/>
+				<interceptor-ref name="scopedModelDriven"/>
+				<interceptor-ref name="modelDriven"/>
+				<interceptor-ref name="fileUpload"/>
+				<interceptor-ref name="checkbox"/>
+				<interceptor-ref name="multiselect"/>
+				<interceptor-ref name="staticParams"/>
+				<interceptor-ref name="actionMappingParams"/>
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*,^struts\..*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError"/>
+				<interceptor-ref name="setParams" />
+				<interceptor-ref name="ovalValidation" />
+				<interceptor-ref name="loginCheck" />
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="prepare"/>
+				<interceptor-ref name="logger"/>
+				<interceptor-ref name="token">
+					<param name="includeMethods">regist,entry,upload</param>
+				</interceptor-ref>
+				<interceptor-ref name="debugout" />
+				<interceptor-ref name="annotationInterceptor"/>
+
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- デフォルトのinterceptorを設定 -->
+		<default-interceptor-ref name="sacStack" />
+
+		<!-- global-results -->
+		<global-results>
+			<result name="application_exception">/WEB-INF/content/common/ApplicationError.jsp</result>
+			<result name="exception">/WEB-INF/content/common/SystemError.jsp</result>
+			<result name="invalid.token">/WEB-INF/content/common/TokenError.jsp</result>
+			<result name="complete">/WEB-INF/content/common/Complete.jsp</result>
+			<result name="logout">/WEB-INF/content/common/Logout.jsp</result>
+			<result name="redirect2top" type="redirect">/ac0000</result>
+		</global-results>
+
+		<!-- global-exception-mappings -->
+		<global-exception-mappings>
+			<exception-mapping exception="jp.ne.sac.common.exception.ApplicationException" result="application_exception"/>
+			<exception-mapping exception="java.lang.Throwable" result="exception"/>
+		</global-exception-mappings>
+	</package>
+</struts>

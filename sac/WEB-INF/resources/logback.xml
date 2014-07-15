@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- Config for System Error logs. -->
+	<appender name="SYSERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Append>true</Append>
+		<encoder>
+			<pattern>[%d{yyyy/MM/dd HH:mm:ss.SSS}]\(%X{loginInfo.user_id}\) - %X{sqlId}%m%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>C:/Logs/SAC/system_error.log.%d{yyyyMMdd}</fileNamePattern>
+		</rollingPolicy>
+	</appender>
+	<logger name="jp.ne.sac.common.exception.SendMailException" level="ERROR">
+		<appender-ref ref="SYSERROR" />
+	</logger>
+	<logger name="jp.ne.sac.common.exception.SystemException" level="ERROR">
+		<appender-ref ref="SYSERROR" />
+	</logger>
+
+	<!-- Config for SQL logs. -->
+	<appender name="DBLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Append>true</Append>
+		<encoder>
+			<pattern>[%d{yyyy/MM/dd HH:mm:ss.SSS}]\(%X{user_id}\) - %X{sqlId}%m%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>C:/Logs/SAC//mybatis.log.%d{yyyyMMdd}</fileNamePattern>
+		</rollingPolicy>
+	</appender>
+	<logger name="org.apache.ibatis" level="DEBUG">
+		<appender-ref ref="DBLOG" />
+	</logger>
+<!--
+	<logger name="java.sql" level="DEBUG">
+		<appender-ref ref="DBLOG" />
+	</logger>
+-->
+	<logger name="java.sql.Connection" level="DEBUG">
+		<appender-ref ref="DBLOG" />
+	</logger>
+	<logger name="java.sql.PreparedStatement" level="DEBUG">
+		<appender-ref ref="DBLOG" />
+	</logger>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{mm:ss.SSS}\(%X{loginInfo.user_id}\) %-5p %-40c\(%M#%L\) - %X{sqlId}%m%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.apache" level="INFO"/>
+	<logger name="org.springframework" level="INFO"/>
+	<logger name="com.opensymphony.xwork2" level="INFO"/>
+	<logger name="freemarker" level="INFO"/>
+	<logger name="com.opensymphony.xwork2.interceptor.ParametersInterceptor" level="DEBUG"/>
+
+	<root level="DEBUG">
+		<appender-ref ref="CONSOLE"/>
+	</root>
+</configuration>

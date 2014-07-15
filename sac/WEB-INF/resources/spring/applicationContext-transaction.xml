@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
+        default-autowire="byName"
+>
+
+    <!-- データソース設定ファイル -->
+    <bean id="propertyConfigurer"
+            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- セッションファクトリー設定 -->
+    <bean id="sqlSessionFactory" class= "org.mybatis.spring.SqlSessionFactoryBean" >
+        <property name="dataSource" ref= "dataSource" />
+        <property name="mapperLocations" value="classpath:mybatis/**/*.xml" />
+    </bean>
+
+    <!-- トランザクション管理 -->
+    <bean id="transactionManager"
+            class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- トランザクション定義でSpringアノテーション利用を宣言する。 -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+    <!-- jdbc定義 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialSize" value="1"/>
+        <!-- <property name="maxActive" value="3"/> -->
+        <property name="maxIdle" value="3"/>
+        <property name="minIdle" value="1"/>
+        <!-- <property name="maxWait" value="20000"/> -->
+        <property name="defaultAutoCommit" value="false"/>
+        <!-- <property name="removeAbandoned" value="true"/> -->
+        <property name="removeAbandonedTimeout" value="60"/>
+        <property name="logAbandoned" value="true"/>
+    </bean>
+
+    <!-- DAO定義 -->
+    <bean id="DAO" class="jp.ne.sac.common.dao.DAOImpl">
+         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+</beans>
