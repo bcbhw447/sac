@@ -1,0 +1,36 @@
+#tab {
+	margin-left: 0;
+	padding-left: 0;
+	margin-bottom: 1em;
+	border-top: 2px solid #333;
+	height: 1.5em;
+	text-align: center;
+}
+
+#tab li {
+	float: left;
+	width: 64px;
+	height: 1.5em;
+	overflow: hidden;
+}
+#tab li a {
+	display: block;
+	width: 60px;
+	height: 1.5em;
+	border: 1px solid #ccc;
+	border-top: 0;
+	
+	color: #777;
+	text-align: center;
+}
+#tab li a:hover,
+#tab li.present a {
+	border-color: #333;
+	color: #000;
+}
+
+
+#page1, #page2, #page3, #page4, #page5 #page6 #page7 #page8 #page9 #page10{
+	margin-bottom: 12em;
+	padding-top: 1em;
+}

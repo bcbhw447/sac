@@ -1,0 +1,196 @@
+/*******************************************************************************
+ * TKRookies.css
+ * TAKT研修オンラインショッピングシステム
+ * <p>
+ * 共通スタイルシート
+ * <p>
+ * 修正履歴
+ * -----------------------------------------------------------------------------
+ * 修正日       管理No  修正者名        変更概要
+ * ------------ ------- --------------- ----------------------------------------
+ * 2009/04/10   00000   X.XXXXXX        新規作成
+ *******************************************************************************
+ */
+
+/* ================================================================================ */
+/* 共通設定                                                                         */
+/* ================================================================================ */
+body {
+	font-size: 14px;
+	background-color: #E0FFFF;
+}
+
+.tbl {
+	font-size: 14px;
+}
+
+.tblResult {
+	font-size: 14px;
+	background-color: #FFFFFF;
+}
+
+.tblR {
+	font-size: 14px;
+	text-align: right;
+	background-color: #FFFFFF;
+}
+
+.tblC {
+	font-size: 14px;
+	text-align: center;
+	background-color: #FFFFFF;
+}
+
+.noResult {
+	font-size: 14px;
+	text-align: left;
+	background-color: #F00000;
+}
+
+.tblNew {
+	font-size: 14px;
+	font-color: red;
+	text-align: center;
+	background-color: #FFFFFF;
+}
+
+.tblPink {
+	font-size: 14px;
+	background-color: #FFE4E1;
+}
+
+.btn {
+	width: 80;
+	cursor: pointer;
+}
+
+.btn_def {
+	cursor: pointer;
+}
+
+.list {
+	width: 200;
+}
+
+.left {
+	text-align:left !important;
+}
+.right {
+	text-align:right !important;
+}
+.center {
+	text-align:center !important;
+}
+
+.input_necessary {
+	color               : #ff0000;
+	font-size           : 11pt;
+	vertical-align      : middle;
+	font-weight         : bold;
+}
+
+#space15 {
+	height              : 15px;
+}
+
+#space30 {
+	height              : 30px;
+}
+
+.input_num {
+	text-align          : right;
+}
+
+
+/* ================================================================================ */
+/* ヘッダ部                                                                         */
+/* ================================================================================ */
+.titleleft {
+	padding              : 20px 8px 20px 8px;
+	background-image     : url(./../img/tkr_logo.jpg);
+	background-repeat    : no-repeat;
+	background-position  : center center;
+	width                : 230px;
+}
+
+.titlecenter {
+	font-weight          : bold;
+	color                : #0000FF;
+	font-size            : 18pt;
+	text-align           : left;
+	background-repeat    : no-repeat;
+	background-position  : center center;
+	padding              : 20px 8px 20px 8px;
+	background-image     : url(./../img/titleberleft.jpg);
+	width                : 400px;
+}
+
+.titleright {
+	font-family          : monospace;
+	font-weight          : bold;
+	color                : #001E32;
+	font-size            : 15pt;
+	text-align           : right;
+	white-space          : nowrap;
+	padding              : 20px 8px 20px 8px;
+	background-image     : url(./../img/titleberright.JPG);
+	background-repeat    : no-repeat;
+	background-position  : center center;
+	width                : 300px;
+}
+
+/* ================================================================================ */
+/* フッタ部                                                                         */
+/* ================================================================================ */
+#footer {
+	margin               : 8px 0px 0px 10px;
+	height               : 8px;
+	border-top           : 1px solid #3535FF;
+}
+#copyright {
+	text-align           : center;
+	font-size            : 8pt;
+	color                : #666666;
+	margin               : 1px 10px 1px 10px;
+}
+
+/* ================================================================================ */
+/* メッセージ部                                                                     */
+/* ================================================================================ */
+#message {
+	text-align           : center;
+	font-size            : 12pt;
+	font-weight          : bold;
+	color                : red;
+	margin               : 1px 10px 1px 10px;
+}
+
+/* ================================================================================ */
+/* メイン部                                                                         */
+/* ================================================================================ */
+
+/* テーブルヘッダ */
+.table-header {
+  font-size              : 14px;
+  color                  : #ffffff;
+  background-color       : #0000FF;
+  text-align             : left;
+  vertical-align         : middle;
+}
+
+/* テーブル明細 */
+#result_scroll {
+	height                 : 400px;
+	overflow-y             : scroll;
+	overflow-x             : auto;
+}
+
+/* 編集不可用スタイル */
+input.no-input {
+  font-size              : 14px;
+  color                  : #000000;
+  background-color       : transparent;
+  text-align             : left;
+  vertical-align         : middle;
+}
+
